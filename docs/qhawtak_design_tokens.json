@@ -1,0 +1,64 @@
+{
+  "meta": {
+    "name": "Qhawtak Design Tokens",
+    "version": "1.0.0"
+  },
+  "color": {
+    "primary": "#4E342E",
+    "secondary": "#6D4C41",
+    "accent": "#C68B59",
+    "background": "#F5E9DA",
+    "surface": "#FFFFFF",
+    "textPrimary": "#2D1F1B",
+    "textSecondary": "#6B5A55",
+    "border": "#E7D8C6",
+    "success": "#2E7D32",
+    "warning": "#ED6C02",
+    "error": "#C62828",
+    "info": "#1565C0"
+  },
+  "radius": {
+    "sm": 10,
+    "md": 14,
+    "lg": 18,
+    "pill": 999
+  },
+  "spacing": {
+    "xs": 4,
+    "sm": 8,
+    "md": 12,
+    "lg": 16,
+    "xl": 20,
+    "xxl": 24,
+    "xxxl": 32,
+    "huge": 40
+  },
+  "typography": {
+    "fontFamily": "Poppins",
+    "display": { "size": 32, "weight": 700, "lineHeight": 1.2 },
+    "h1": { "size": 28, "weight": 700, "lineHeight": 1.25 },
+    "h2": { "size": 22, "weight": 600, "lineHeight": 1.3 },
+    "h3": { "size": 18, "weight": 600, "lineHeight": 1.35 },
+    "bodyLg": { "size": 16, "weight": 500, "lineHeight": 1.45 },
+    "body": { "size": 14, "weight": 400, "lineHeight": 1.5 },
+    "caption": { "size": 12, "weight": 400, "lineHeight": 1.45 },
+    "button": { "size": 15, "weight": 600, "lineHeight": 1.2 }
+  },
+  "elevation": {
+    "level1": "0 2px 8px rgba(78, 52, 46, 0.08)",
+    "level2": "0 6px 16px rgba(78, 52, 46, 0.12)",
+    "level3": "0 10px 24px rgba(78, 52, 46, 0.16)"
+  },
+  "motion": {
+    "baseMs": 180,
+    "enterMs": 220,
+    "exitMs": 140,
+    "staggerMs": 40
+  },
+  "breakpoints": {
+    "xs": 0,
+    "sm": 480,
+    "md": 768,
+    "lg": 1024
+  }
+}
