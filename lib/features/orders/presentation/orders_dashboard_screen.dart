@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qhawtak/shared/models/order.dart';
+import 'package:qhawtak/shared/widgets/coffee_hero_banner.dart';
 import 'package:qhawtak/shared/widgets/empty_state.dart';
 import 'package:qhawtak/shared/widgets/order_card.dart';
 import 'package:qhawtak/shared/widgets/staggered_fade_slide.dart';
@@ -39,6 +40,16 @@ class OrdersDashboardScreen extends StatelessWidget {
       length: tabs.length,
       child: Column(
         children: <Widget>[
+          const Padding(
+            padding: EdgeInsets.fromLTRB(16, 12, 16, 10),
+            child: CoffeeHeroBanner(
+              imageUrl:
+                  'https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=1200&q=80',
+              title: 'Incoming Orders',
+              subtitle: 'Track, accept, and serve in real time',
+              height: 132,
+            ),
+          ),
           TabBar(
             isScrollable: true,
             tabs: tabs.map((e) => Tab(text: e.label)).toList(),

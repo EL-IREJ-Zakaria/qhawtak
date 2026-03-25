@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qhawtak/core/theme/app_colors.dart';
 import 'package:qhawtak/shared/models/order.dart';
+import 'package:qhawtak/shared/widgets/coffee_hero_banner.dart';
 import 'package:qhawtak/shared/widgets/stat_card.dart';
 
 class SalesStatsScreen extends StatefulWidget {
@@ -35,6 +36,14 @@ class _SalesStatsScreenState extends State<SalesStatsScreen> {
     return ListView(
       padding: const EdgeInsets.all(16),
       children: <Widget>[
+        const CoffeeHeroBanner(
+            imageUrl:
+                'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1200&q=80',
+            title: 'Sales Pulse',
+            subtitle: 'Performance insights for your coffee bar',
+            height: 146,
+        ),
+        const SizedBox(height: 12),
         Wrap(
           spacing: 8,
           children: <String>['Today', 'This Week', 'This Month'].map((String label) {
@@ -49,7 +58,7 @@ class _SalesStatsScreenState extends State<SalesStatsScreen> {
         const SizedBox(height: 12),
         StatCard(
           title: 'Total Sales',
-          value: '\$${totalSales.toStringAsFixed(2)}',
+          value: '${totalSales.toStringAsFixed(2)} MAD',
           icon: Icons.payments_outlined,
         ),
         StatCard(
@@ -59,7 +68,7 @@ class _SalesStatsScreenState extends State<SalesStatsScreen> {
         ),
         StatCard(
           title: 'Average Order',
-          value: '\$${avg.toStringAsFixed(2)}',
+          value: '${avg.toStringAsFixed(2)} MAD',
           icon: Icons.stacked_line_chart_outlined,
         ),
         Card(

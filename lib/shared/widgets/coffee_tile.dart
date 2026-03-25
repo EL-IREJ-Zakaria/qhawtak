@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qhawtak/core/theme/app_colors.dart';
 import 'package:qhawtak/shared/models/coffee.dart';
+import 'package:qhawtak/shared/widgets/animated_network_image.dart';
 
 class CoffeeTile extends StatelessWidget {
   const CoffeeTile({
@@ -29,7 +30,7 @@ class CoffeeTile extends StatelessWidget {
         subtitle: Padding(
           padding: const EdgeInsets.only(top: 4),
           child: Text(
-            '${coffee.category} • \$${coffee.price.toStringAsFixed(2)}\n${coffee.description}',
+            '${coffee.category} | ${coffee.price.toStringAsFixed(2)} MAD\n${coffee.description}',
           ),
         ),
         trailing: PopupMenuButton<String>(
@@ -50,12 +51,25 @@ class CoffeeTile extends StatelessWidget {
             ),
           ],
         ),
-        leading: CircleAvatar(
-          backgroundColor: coffee.isAvailable ? AppColors.accent : AppColors.border,
-          child: Icon(
-            coffee.isAvailable ? Icons.local_cafe : Icons.block,
-            color: coffee.isAvailable ? AppColors.textPrimary : AppColors.textSecondary,
-          ),
+        leading: Stack(
+          children: <Widget>[
+            AnimatedNetworkImage(
+              imageUrl: coffee.imageUrl,
+              width: 56,
+              height: 56,
+              borderRadius: 12,
+            ),
+            if (!coffee.isAvailable)
+              Positioned.fill(
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    color: Colors.black.withValues(alpha: 0.28),
+                  ),
+                  child: const Icon(Icons.block, color: Colors.white, size: 20),
+                ),
+              ),
+          ],
         ),
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qhawtak/core/theme/app_colors.dart';
 import 'package:qhawtak/features/menu/presentation/menu_management_screen.dart';
 import 'package:qhawtak/features/notifications/presentation/notifications_screen.dart';
 import 'package:qhawtak/features/orders/presentation/orders_dashboard_screen.dart';
@@ -63,9 +64,16 @@ class _AdminHomeShellState extends State<AdminHomeShell> {
             Padding(
               padding: const EdgeInsets.only(right: 12),
               child: Center(
-                child: Text(
-                  'Active: ${_orders.where((o) => o.status != OrderStatus.completed).length}',
-                  style: const TextStyle(fontWeight: FontWeight.w600),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: AppColors.accent.withValues(alpha: 0.22),
+                    borderRadius: BorderRadius.circular(999),
+                  ),
+                  child: Text(
+                    'Active ${_orders.where((o) => o.status != OrderStatus.completed).length}',
+                    style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 12),
+                  ),
                 ),
               ),
             ),
@@ -76,34 +84,72 @@ class _AdminHomeShellState extends State<AdminHomeShell> {
           ),
         ],
       ),
-      body: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 240),
-        switchInCurve: Curves.easeOutCubic,
-        switchOutCurve: Curves.easeInCubic,
-        transitionBuilder: (Widget child, Animation<double> animation) {
-          final Animation<Offset> offset = Tween<Offset>(
-            begin: const Offset(0.02, 0),
-            end: Offset.zero,
-          ).animate(animation);
-          return FadeTransition(
-            opacity: animation,
-            child: SlideTransition(position: offset, child: child),
-          );
-        },
-        child: KeyedSubtree(
-          key: ValueKey<int>(_index),
-          child: pages[_index],
-        ),
-      ),
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: _index,
-        onDestinationSelected: (int value) => setState(() => _index = value),
-        destinations: const <NavigationDestination>[
-          NavigationDestination(icon: Icon(Icons.receipt_long), label: 'Orders'),
-          NavigationDestination(icon: Icon(Icons.local_cafe), label: 'Menu'),
-          NavigationDestination(icon: Icon(Icons.bar_chart), label: 'Stats'),
-          NavigationDestination(icon: Icon(Icons.notifications), label: 'Alerts'),
+      body: Stack(
+        children: <Widget>[
+          Positioned(
+            top: -80,
+            right: -60,
+            child: _blurBlob(
+              size: 220,
+              color: AppColors.accent.withValues(alpha: 0.2),
+            ),
+          ),
+          Positioned(
+            left: -70,
+            bottom: -90,
+            child: _blurBlob(
+              size: 260,
+              color: AppColors.secondary.withValues(alpha: 0.14),
+            ),
+          ),
+          AnimatedSwitcher(
+            duration: const Duration(milliseconds: 240),
+            switchInCurve: Curves.easeOutCubic,
+            switchOutCurve: Curves.easeInCubic,
+            transitionBuilder: (Widget child, Animation<double> animation) {
+              final Animation<Offset> offset = Tween<Offset>(
+                begin: const Offset(0.02, 0),
+                end: Offset.zero,
+              ).animate(animation);
+              return FadeTransition(
+                opacity: animation,
+                child: SlideTransition(position: offset, child: child),
+              );
+            },
+            child: KeyedSubtree(
+              key: ValueKey<int>(_index),
+              child: pages[_index],
+            ),
+          ),
         ],
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(24),
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.08),
+                blurRadius: 18,
+                offset: const Offset(0, 8),
+              ),
+            ],
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(24),
+            child: NavigationBar(
+              selectedIndex: _index,
+              onDestinationSelected: (int value) => setState(() => _index = value),
+              destinations: const <NavigationDestination>[
+                NavigationDestination(icon: Icon(Icons.receipt_long), label: 'Orders'),
+                NavigationDestination(icon: Icon(Icons.local_cafe), label: 'Menu'),
+                NavigationDestination(icon: Icon(Icons.bar_chart), label: 'Stats'),
+                NavigationDestination(icon: Icon(Icons.notifications), label: 'Alerts'),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -169,5 +215,18 @@ class _AdminHomeShellState extends State<AdminHomeShell> {
       case OrderStatus.cancelled:
         return 'Cancelled';
     }
+  }
+
+  Widget _blurBlob({required double size, required Color color}) {
+    return IgnorePointer(
+      child: Container(
+        width: size,
+        height: size,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: color,
+        ),
+      ),
+    );
   }
 }

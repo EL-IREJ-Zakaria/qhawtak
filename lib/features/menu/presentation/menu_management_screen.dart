@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qhawtak/features/menu/presentation/edit_coffee_screen.dart';
 import 'package:qhawtak/shared/models/coffee.dart';
+import 'package:qhawtak/shared/widgets/coffee_hero_banner.dart';
 import 'package:qhawtak/shared/widgets/coffee_tile.dart';
 import 'package:qhawtak/shared/widgets/empty_state.dart';
 import 'package:qhawtak/shared/widgets/staggered_fade_slide.dart';
@@ -37,6 +38,16 @@ class _MenuManagementScreenState extends State<MenuManagementScreen> {
     return Scaffold(
       body: Column(
         children: <Widget>[
+          const Padding(
+            padding: EdgeInsets.fromLTRB(16, 14, 16, 8),
+            child: CoffeeHeroBanner(
+              imageUrl:
+                  'https://images.unsplash.com/photo-1453614512568-c4024d13c247?auto=format&fit=crop&w=1200&q=80',
+              title: 'Menu Curation',
+              subtitle: 'Keep drinks fresh and availability updated',
+              height: 126,
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
             child: TextField(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qhawtak/shared/widgets/animated_network_image.dart';
 import 'package:qhawtak/shared/widgets/qhawtak_button.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -64,6 +65,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
+                          const AnimatedNetworkImage(
+                            imageUrl:
+                                'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1200&q=80',
+                            height: 140,
+                            borderRadius: 16,
+                          ),
+                          const SizedBox(height: 16),
                           const Text(
                             'Admin Login',
                             style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
