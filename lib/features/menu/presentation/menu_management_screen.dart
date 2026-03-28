@@ -44,7 +44,7 @@ class _MenuManagementScreenState extends State<MenuManagementScreen> {
               imageUrl:
                   'https://images.unsplash.com/photo-1453614512568-c4024d13c247?auto=format&fit=crop&w=1200&q=80',
               title: 'Menu Curation',
-              subtitle: 'Keep drinks fresh and availability updated',
+              subtitle: 'Keep the waiter app and website menu perfectly aligned',
               height: 126,
             ),
           ),
@@ -53,7 +53,7 @@ class _MenuManagementScreenState extends State<MenuManagementScreen> {
             child: TextField(
               onChanged: (String value) => setState(() => _query = value),
               decoration: const InputDecoration(
-                hintText: 'Search coffee...',
+                hintText: 'Search menu item...',
                 prefixIcon: Icon(Icons.search),
               ),
             ),
@@ -61,7 +61,7 @@ class _MenuManagementScreenState extends State<MenuManagementScreen> {
           Expanded(
             child: filtered.isEmpty
                 ? const EmptyState(
-                    title: 'No coffee found',
+                    title: 'No menu item found',
                     message: 'Try changing your search or add a new item.',
                     icon: Icons.local_cafe_outlined,
                   )
@@ -87,7 +87,7 @@ class _MenuManagementScreenState extends State<MenuManagementScreen> {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _openEditor(),
         icon: const Icon(Icons.add),
-        label: const Text('Add Coffee'),
+        label: const Text('Add Item'),
       ),
     );
   }

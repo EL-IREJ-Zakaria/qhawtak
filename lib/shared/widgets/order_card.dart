@@ -19,7 +19,7 @@ class OrderCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final DateTime now = DateTime.now();
     final int minutes = now.difference(order.createdAt).inMinutes;
-    final String itemNames = order.items.map((i) => i.coffeeName).join(', ');
+    final String itemNames = order.itemSummary;
 
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 8),
@@ -54,7 +54,7 @@ class OrderCard extends StatelessWidget {
             Text(itemNames, style: const TextStyle(fontWeight: FontWeight.w600)),
             const SizedBox(height: 6),
             Text(
-              'Qty: ${order.quantity} | Unit: ${order.items.first.unitPrice.toStringAsFixed(2)} MAD',
+              'Items: ${order.quantity} | Lines: ${order.items.length}',
               style: const TextStyle(color: AppColors.textSecondary),
             ),
             const SizedBox(height: 4),
@@ -88,19 +88,7 @@ class OrderCard extends StatelessWidget {
   }
 
   String? _nextLabel(OrderStatus status) {
-    switch (status) {
-      case OrderStatus.newOrder:
-        return 'Accept Order';
-      case OrderStatus.accepted:
-        return 'Mark Preparing';
-      case OrderStatus.preparing:
-        return 'Mark Ready';
-      case OrderStatus.ready:
-        return 'Complete Order';
-      case OrderStatus.completed:
-      case OrderStatus.cancelled:
-        return null;
-    }
+    return status.nextActionLabel;
   }
 
   String _formatClock(DateTime date) {

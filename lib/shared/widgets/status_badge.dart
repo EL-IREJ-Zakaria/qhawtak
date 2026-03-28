@@ -28,34 +28,17 @@ class StatusBadge extends StatelessWidget {
   }
 
   String _label(OrderStatus s) {
-    switch (s) {
-      case OrderStatus.newOrder:
-        return 'New';
-      case OrderStatus.accepted:
-        return 'Accepted';
-      case OrderStatus.preparing:
-        return 'Preparing';
-      case OrderStatus.ready:
-        return 'Ready';
-      case OrderStatus.completed:
-        return 'Completed';
-      case OrderStatus.cancelled:
-        return 'Cancelled';
-    }
+    return s.label;
   }
 
   ColorPair _pair(OrderStatus s) {
     switch (s) {
-      case OrderStatus.newOrder:
+      case OrderStatus.pending:
         return const ColorPair(Color(0xFFE8F1FB), AppColors.info);
-      case OrderStatus.accepted:
-        return const ColorPair(Color(0xFFF0E4DB), AppColors.secondary);
       case OrderStatus.preparing:
         return const ColorPair(Color(0xFFFFE7D0), AppColors.warning);
-      case OrderStatus.ready:
+      case OrderStatus.served:
         return const ColorPair(Color(0xFFE4F3E5), AppColors.success);
-      case OrderStatus.completed:
-        return const ColorPair(Color(0xFFEFE9E7), AppColors.textSecondary);
       case OrderStatus.cancelled:
         return const ColorPair(Color(0xFFFADDDD), AppColors.error);
     }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:qhawtak/shared/models/order.dart';
 import 'package:qhawtak/shared/widgets/coffee_hero_banner.dart';
@@ -13,26 +15,26 @@ class OrdersDashboardScreen extends StatelessWidget {
   });
 
   final List<CoffeeOrder> orders;
-  final ValueChanged<CoffeeOrder> onAdvanceStatus;
+  final Future<void> Function(CoffeeOrder order) onAdvanceStatus;
 
   @override
   Widget build(BuildContext context) {
     final List<_OrderTabConfig> tabs = <_OrderTabConfig>[
       _OrderTabConfig(
-        label: 'New',
-        statuses: <OrderStatus>[OrderStatus.newOrder],
+        label: 'Pending',
+        statuses: <OrderStatus>[OrderStatus.pending],
       ),
       _OrderTabConfig(
         label: 'Preparing',
-        statuses: <OrderStatus>[OrderStatus.accepted, OrderStatus.preparing],
+        statuses: <OrderStatus>[OrderStatus.preparing],
       ),
       _OrderTabConfig(
-        label: 'Ready',
-        statuses: <OrderStatus>[OrderStatus.ready],
+        label: 'Served',
+        statuses: <OrderStatus>[OrderStatus.served],
       ),
       _OrderTabConfig(
-        label: 'Completed',
-        statuses: <OrderStatus>[OrderStatus.completed],
+        label: 'Cancelled',
+        statuses: <OrderStatus>[OrderStatus.cancelled],
       ),
     ];
 
@@ -79,7 +81,9 @@ class OrdersDashboardScreen extends StatelessWidget {
                         index: index,
                         child: OrderCard(
                           order: order,
-                          onAdvanceStatus: () => onAdvanceStatus(order),
+                          onAdvanceStatus: () {
+                            unawaited(onAdvanceStatus(order));
+                          },
                         ),
                       );
                     },

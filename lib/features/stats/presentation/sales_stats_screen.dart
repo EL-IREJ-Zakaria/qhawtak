@@ -19,7 +19,7 @@ class _SalesStatsScreenState extends State<SalesStatsScreen> {
   @override
   Widget build(BuildContext context) {
     final List<CoffeeOrder> source = widget.orders
-        .where((CoffeeOrder o) => o.status == OrderStatus.completed || o.status == OrderStatus.ready)
+        .where((CoffeeOrder o) => o.status == OrderStatus.served)
         .toList();
     final double totalSales = source.fold(0, (sum, order) => sum + order.total);
     final int orderCount = source.length;

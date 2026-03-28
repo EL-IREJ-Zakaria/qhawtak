@@ -16,6 +16,7 @@ class _EditCoffeeScreenState extends State<EditCoffeeScreen> {
   late final TextEditingController _nameController;
   late final TextEditingController _descriptionController;
   late final TextEditingController _priceController;
+  late final TextEditingController _imageController;
   late String _category;
   late bool _isAvailable;
 
@@ -27,7 +28,8 @@ class _EditCoffeeScreenState extends State<EditCoffeeScreen> {
     _descriptionController = TextEditingController(text: item?.description ?? '');
     _priceController =
         TextEditingController(text: item != null ? item.price.toStringAsFixed(2) : '');
-    _category = item?.category ?? 'Hot';
+    _imageController = TextEditingController(text: item?.imagePath ?? item?.imageUrl ?? '');
+    _category = item?.category ?? 'Coffee';
     _isAvailable = item?.isAvailable ?? true;
   }
 
@@ -36,6 +38,7 @@ class _EditCoffeeScreenState extends State<EditCoffeeScreen> {
     _nameController.dispose();
     _descriptionController.dispose();
     _priceController.dispose();
+    _imageController.dispose();
     super.dispose();
   }
 
@@ -47,7 +50,8 @@ class _EditCoffeeScreenState extends State<EditCoffeeScreen> {
       description: _descriptionController.text.trim(),
       price: double.parse(_priceController.text.trim()),
       category: _category,
-      imageUrl: widget.initial?.imageUrl ?? '',
+      imageUrl: _imageController.text.trim(),
+      imagePath: _imageController.text.trim(),
       isAvailable: _isAvailable,
     );
     Navigator.of(context).pop(result);
@@ -57,7 +61,7 @@ class _EditCoffeeScreenState extends State<EditCoffeeScreen> {
   Widget build(BuildContext context) {
     final bool editing = widget.initial != null;
     return Scaffold(
-      appBar: AppBar(title: Text(editing ? 'Edit Coffee' : 'Add Coffee')),
+      appBar: AppBar(title: Text(editing ? 'Edit Menu Item' : 'Add Menu Item')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Form(
@@ -66,7 +70,7 @@ class _EditCoffeeScreenState extends State<EditCoffeeScreen> {
             children: <Widget>[
               TextFormField(
                 controller: _nameController,
-                decoration: const InputDecoration(labelText: 'Coffee Name'),
+                decoration: const InputDecoration(labelText: 'Item Name'),
                 validator: (String? value) =>
                     (value == null || value.trim().isEmpty) ? 'Name is required' : null,
               ),
@@ -75,6 +79,16 @@ class _EditCoffeeScreenState extends State<EditCoffeeScreen> {
                 controller: _descriptionController,
                 maxLines: 3,
                 decoration: const InputDecoration(labelText: 'Description'),
+              ),
+              const SizedBox(height: 12),
+              TextFormField(
+                controller: _imageController,
+                decoration: const InputDecoration(
+                  labelText: 'Image URL or backend path',
+                  hintText: '/frontend/images/menu/latte.svg',
+                ),
+                validator: (String? value) =>
+                    (value == null || value.trim().isEmpty) ? 'Image is required' : null,
               ),
               const SizedBox(height: 12),
               TextFormField(
@@ -89,13 +103,14 @@ class _EditCoffeeScreenState extends State<EditCoffeeScreen> {
               ),
               const SizedBox(height: 12),
               DropdownButtonFormField<String>(
-                value: _category,
+                initialValue: _category,
                 items: const <DropdownMenuItem<String>>[
-                  DropdownMenuItem(value: 'Hot', child: Text('Hot')),
-                  DropdownMenuItem(value: 'Cold', child: Text('Cold')),
-                  DropdownMenuItem(value: 'Special', child: Text('Special')),
+                  DropdownMenuItem(value: 'Coffee', child: Text('Coffee')),
+                  DropdownMenuItem(value: 'Cold Drinks', child: Text('Cold Drinks')),
+                  DropdownMenuItem(value: 'Sandwiches', child: Text('Sandwiches')),
+                  DropdownMenuItem(value: 'Desserts', child: Text('Desserts')),
                 ],
-                onChanged: (String? value) => setState(() => _category = value ?? 'Hot'),
+                onChanged: (String? value) => setState(() => _category = value ?? 'Coffee'),
                 decoration: const InputDecoration(labelText: 'Category'),
               ),
               const SizedBox(height: 12),
@@ -106,7 +121,7 @@ class _EditCoffeeScreenState extends State<EditCoffeeScreen> {
               ),
               const SizedBox(height: 12),
               QhawtakButton(
-                label: editing ? 'Save Changes' : 'Add Coffee',
+                label: editing ? 'Save Changes' : 'Add Item',
                 icon: Icons.save_outlined,
                 onPressed: _save,
               ),
